@@ -1,7 +1,7 @@
 RewriteEngine On
-RewriteBase /jattau/
 
 # API -> PHP front controller (без /public/ в URL)
+# RewriteBase не задаём: работает и на поддомене (jattau.krg-ktsk.kz), и в /jattau/ на MAMP
 RewriteRule ^api/ public/index.php [L,QSA]
 
 DirectoryIndex index.html

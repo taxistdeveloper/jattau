@@ -1,5 +1,4 @@
 RewriteEngine On
-RewriteBase /jattau/public/
 
 # Pass Authorization header to PHP (required for Apache/FastCGI + JWT)
 RewriteCond %{HTTP:Authorization} .

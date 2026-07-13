@@ -73,6 +73,17 @@ $router->get('/api/v1', function () {
     ]);
 });
 
+$router->get('/api/openapi.yaml', function () {
+    $path = dirname(__DIR__) . '/public/api/openapi.yaml';
+    if (!is_readable($path)) {
+        \App\Helpers\Response::error('OpenAPI spec not found', 404);
+        return;
+    }
+    header('Content-Type: application/yaml; charset=utf-8');
+    readfile($path);
+    exit;
+});
+
 $router->get('/api/docs', function () {
     $basePath = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/');
     $specUrl = htmlspecialchars($basePath . '/api/openapi.yaml', ENT_QUOTES);
