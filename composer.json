@@ -1,0 +1,21 @@
+{
+    "name": "jattau/api",
+    "description": "Jattau Quran Learning API",
+    "type": "project",
+    "require": {
+        "php": ">=8.3",
+        "firebase/php-jwt": "^7.0",
+        "vlucas/phpdotenv": "^5.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "platform": {
+            "php": "8.3.30"
+        }
+    }
+}

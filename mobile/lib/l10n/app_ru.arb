@@ -1,0 +1,216 @@
+{
+  "@@locale": "ru",
+
+  "navHome": "Главная",
+  "navSurahs": "Суры",
+  "navProgress": "Прогресс",
+  "navProfile": "Профиль",
+
+  "greeting": "Ассаляму алейкум 👋",
+  "continueLearning": "Продолжайте изучение",
+  "levelXp": "Уровень {level} • {current}/{max} XP",
+  "@levelXp": {
+    "placeholders": {
+      "level": {"type": "int"},
+      "current": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+  "streakDays": "Streak: {count} {dayWord}",
+  "@streakDays": {
+    "placeholders": {
+      "count": {"type": "int"},
+      "dayWord": {"type": "String"}
+    }
+  },
+  "aiMentor": "ИИ-наставник",
+  "quickActions": "Быстрые действия",
+  "actionRead": "Читать",
+  "actionMemorize": "Запоминание",
+  "actionGuides": "Ұлыгылар",
+
+  "profileTitle": "Профиль",
+  "defaultUser": "Пользователь",
+  "levelBadge": "Уровень {level} 🏅",
+  "@levelBadge": {
+    "placeholders": {
+      "level": {"type": "int"}
+    }
+  },
+  "settings": "Настройки",
+  "errorHistory": "История ошибок",
+  "achievements": "Достижения",
+  "guides": "Ұлыгылар",
+  "logout": "Выйти",
+
+  "welcome": "Добро пожаловать",
+  "inJattau": "в Jattau",
+  "password": "Пароль",
+  "testCredentials": "Тест: demo@jattau.app / password123",
+  "login": "Войти",
+  "noAccountRegister": "Нет аккаунта? Зарегистрироваться",
+  "registration": "Регистрация",
+  "name": "Имя",
+  "passwordMin8": "Пароль (мин. 8)",
+  "register": "Зарегистрироваться",
+
+  "settingsTitle": "Настройки",
+  "languageSection": "Язык",
+  "languageRussian": "Русский",
+  "languageKazakh": "Қазақша",
+  "displaySection": "Отображение",
+  "transliteration": "Транслитерация",
+  "translation": "Перевод",
+  "fontSize": "Размер шрифта",
+  "readingSection": "Чтение",
+  "accuracyThreshold": "Порог точности",
+  "voiceCommands": "Голосовые команды",
+  "themeSection": "Тема",
+  "themeLight": "Светлая",
+  "themeDark": "Тёмная",
+  "themeAuto": "Авто",
+
+  "surahsTitle": "Суры",
+  "ayahsTitle": "Аяты",
+  "ayahCount": "{count} аят",
+  "@ayahCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "readingTitle": "Чтение",
+  "speechUnavailable": "Распознавание недоступно: {error}",
+  "@speechUnavailable": {
+    "placeholders": {
+      "error": {"type": "String"}
+    }
+  },
+  "speechNotOnDevice": "Распознавание речи недоступно на устройстве",
+  "arabicLocaleMissing": "Арабский язык распознавания не найден. На iPhone: Настройки → Основные → Язык и регион → добавьте العربية",
+  "correctCount": "Правильно: {correct} из {total}",
+  "@correctCount": {
+    "placeholders": {
+      "correct": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "youSaid": "Вы сказали",
+  "listening": "Слушаю... начните читать",
+  "liveChecking": "Идёт проверка... нажмите, чтобы остановить",
+  "readWithHighlight": "Читать с подсветкой",
+  "stopSeconds": "Стоп ({seconds}s)",
+  "@stopSeconds": {
+    "placeholders": {
+      "seconds": {"type": "int"}
+    }
+  },
+  "checkOnServer": "Проверить на сервере",
+  "reference": "Эталон",
+  "referencePlaying": "Воспроизведение...",
+  "referenceAudioFailed": "Не удалось воспроизвести эталонное аудио",
+
+  "resultTitle": "Результат",
+  "processing": "Обработка...",
+  "errorsCount": "Ошибки ({count})",
+  "@errorsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "expected": "Ожид: {word}",
+  "@expected": {
+    "placeholders": {
+      "word": {"type": "String"}
+    }
+  },
+  "actual": "Было: {word}",
+  "@actual": {
+    "placeholders": {
+      "word": {"type": "String"}
+    }
+  },
+  "skipped": "Пропущено: {word}",
+  "@skipped": {
+    "placeholders": {
+      "word": {"type": "String"}
+    }
+  },
+  "retry": "Повторить",
+  "excellentXp": "Отлично! +15 XP",
+  "nextAyah": "Следующий аят",
+  "errorPrefix": "Ошибка: {message}",
+  "@errorPrefix": {
+    "placeholders": {
+      "message": {"type": "String"}
+    }
+  },
+
+  "errorHistoryTitle": "История ошибок",
+  "noErrorsYet": "Ошибок пока нет",
+  "ayahNumber": "{surah} • Аят {number}",
+  "@ayahNumber": {
+    "placeholders": {
+      "surah": {"type": "String"},
+      "number": {"type": "int"}
+    }
+  },
+
+  "statisticsTitle": "Прогресс",
+  "surahsStat": "Сур",
+  "ayahsStat": "Аятов",
+  "accuracyStat": "Точность",
+  "streakLabel": "Streak",
+  "daysCount": "{count} дней",
+  "@daysCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "weeklyAccuracy": "Точность за неделю",
+
+  "achievementsTitle": "Достижения",
+  "levelXpShort": "Уровень {level} • {xp} XP",
+  "@levelXpShort": {
+    "placeholders": {
+      "level": {"type": "int"},
+      "xp": {"type": "int"}
+    }
+  },
+  "achievementFirstAyah": "Первый аят",
+  "achievementStreak7": "7 дней streak",
+  "achievement10Ayahs": "10 аятов",
+  "achievementSurah1": "Сура 1",
+  "achievement5Memorized": "5 наизусть",
+  "achievement90Accuracy": "90% точность",
+
+  "memorizationTitle": "Запоминание",
+  "newCards": "Новые",
+  "reviewCards": "Повтор",
+  "memorized": "Запомнено",
+  "again": "Снова",
+  "hard": "Сложно",
+  "good": "Хорошо",
+  "easy": "Легко",
+  "showTranslation": "Показать перевод",
+  "allDoneToday": "На сегодня всё повторено!",
+  "comeBackLater": "Возвращайтесь позже для новых повторений.",
+
+  "guidesTitle": "Ұлыгылар",
+  "guideNotFound": "Ұлығы табылмады",
+  "copy": "Көшіру",
+  "textCopied": "Мәтін көшірілді",
+
+  "connectionError": "Не удалось подключиться к серверу. Проверьте, что backend запущен.",
+  "invalidCredentials": "Неверный email или пароль",
+  "emailRegistered": "Этот email уже зарегистрирован",
+  "validationFailed": "Проверьте правильность введённых данных",
+  "accountDeactivated": "Аккаунт деактивирован",
+  "sessionExpired": "Сессия истекла. Войдите снова",
+  "speechRecognitionFailed": "Распознавание речи недоступно. Проверьте OPENAI_API_KEY в backend/.env",
+
+  "daySingular": "день",
+  "dayFew": "дня",
+  "dayMany": "дней",
+  "dayUnit": "күн"
+}

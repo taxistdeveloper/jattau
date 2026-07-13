@@ -1,0 +1,310 @@
+openapi: 3.0.3
+info:
+  title: Jattau API
+  description: REST API for Quran learning app with AI-powered recitation analysis
+  version: 1.0.0
+  contact:
+    name: Jattau Team
+
+servers:
+  - url: http://localhost/jattau/backend/public/api/v1
+    description: Local development (MAMP)
+
+tags:
+  - name: Auth
+  - name: User
+  - name: Surahs
+  - name: Ayahs
+  - name: Recitations
+  - name: Statistics
+  - name: Memorization
+
+paths:
+  /health:
+    get:
+      tags: [Auth]
+      summary: Health check
+      responses:
+        '200':
+          description: OK
+
+  /auth/register:
+    post:
+      tags: [Auth]
+      summary: Register new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password, password_confirmation, full_name]
+              properties:
+                email: { type: string, format: email }
+                password: { type: string, minLength: 8 }
+                password_confirmation: { type: string }
+                full_name: { type: string }
+      responses:
+        '201':
+          description: Registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '422':
+          description: Validation error
+
+  /auth/login:
+    post:
+      tags: [Auth]
+      summary: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email: { type: string }
+                password: { type: string }
+      responses:
+        '200':
+          description: Logged in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+
+  /auth/refresh:
+    post:
+      tags: [Auth]
+      summary: Refresh access token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refresh_token: { type: string }
+      responses:
+        '200':
+          description: Token refreshed
+
+  /user/profile:
+    get:
+      tags: [User]
+      security: [{ bearerAuth: [] }]
+      summary: Get user profile
+      responses:
+        '200':
+          description: Profile data
+
+  /surahs:
+    get:
+      tags: [Surahs]
+      security: [{ bearerAuth: [] }]
+      summary: List all surahs
+      parameters:
+        - name: page
+          in: query
+          schema: { type: integer, default: 1 }
+        - name: per_page
+          in: query
+          schema: { type: integer, default: 114 }
+      responses:
+        '200':
+          description: Paginated surahs list
+
+  /surahs/{id}:
+    get:
+      tags: [Surahs]
+      security: [{ bearerAuth: [] }]
+      summary: Get surah by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: Surah details
+        '404':
+          description: Not found
+
+  /surahs/{surahId}/ayahs:
+    get:
+      tags: [Ayahs]
+      security: [{ bearerAuth: [] }]
+      summary: List ayahs by surah
+      parameters:
+        - name: surahId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+        - name: page
+          in: query
+          schema: { type: integer, default: 1 }
+      responses:
+        '200':
+          description: Paginated ayahs
+
+  /ayahs/{id}:
+    get:
+      tags: [Ayahs]
+      security: [{ bearerAuth: [] }]
+      summary: Get ayah by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: Ayah with text
+
+  /recitations:
+    post:
+      tags: [Recitations]
+      security: [{ bearerAuth: [] }]
+      summary: Upload and analyze recitation
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [audio, ayah_id]
+              properties:
+                audio:
+                  type: string
+                  format: binary
+                ayah_id:
+                  type: string
+                  format: uuid
+                duration:
+                  type: number
+      responses:
+        '201':
+          description: Analysis result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecitationResult'
+
+  /recitations/{id}:
+    get:
+      tags: [Recitations]
+      security: [{ bearerAuth: [] }]
+      summary: Get recitation result
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: Recitation with result
+
+  /recitations/errors:
+    get:
+      tags: [Recitations]
+      security: [{ bearerAuth: [] }]
+      summary: Get pronunciation error history
+      responses:
+        '200':
+          description: Error list
+
+  /statistics:
+    get:
+      tags: [Statistics]
+      security: [{ bearerAuth: [] }]
+      summary: Get user statistics and streak
+      responses:
+        '200':
+          description: Statistics data
+
+  /mentor/recommendations:
+    get:
+      tags: [Statistics]
+      security: [{ bearerAuth: [] }]
+      summary: Get AI mentor recommendations
+      responses:
+        '200':
+          description: Recommendations list
+
+  /memorization/due:
+    get:
+      tags: [Memorization]
+      security: [{ bearerAuth: [] }]
+      summary: Get due memorization cards
+      responses:
+        '200':
+          description: Due cards for SRS review
+
+  /memorization/review:
+    post:
+      tags: [Memorization]
+      security: [{ bearerAuth: [] }]
+      summary: Submit SRS review
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [ayah_id, quality]
+              properties:
+                ayah_id: { type: string, format: uuid }
+                quality: { type: integer, minimum: 0, maximum: 5 }
+      responses:
+        '200':
+          description: Updated card
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    AuthResponse:
+      type: object
+      properties:
+        success: { type: boolean }
+        data:
+          type: object
+          properties:
+            user:
+              $ref: '#/components/schemas/User'
+            access_token: { type: string }
+            refresh_token: { type: string }
+            token_type: { type: string }
+            expires_in: { type: integer }
+
+    User:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        email: { type: string }
+        full_name: { type: string }
+        role: { type: string }
+        level: { type: integer }
+        experience_points: { type: integer }
+
+    RecitationResult:
+      type: object
+      properties:
+        recitation:
+          type: object
+        result:
+          type: object
+          properties:
+            accuracy_percent: { type: number }
+            is_passed: { type: boolean }
+            words_skipped: { type: array }
+            words_mispronounced: { type: array }
+            words_extra: { type: array }
+            tajweed_errors: { type: array }
+        feedback: { type: string }
+        can_proceed: { type: boolean }

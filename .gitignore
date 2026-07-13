@@ -1,0 +1,13 @@
+# Jattau
+
+/.env
+/backend/vendor/
+/backend/storage/audio/*
+!/backend/storage/audio/.gitkeep
+/backend/storage/logs/*
+!/backend/storage/logs/.gitkeep
+/mobile/.dart_tool/
+/mobile/build/
+/mobile/.flutter-plugins-dependencies
+.DS_Store
+*.log
