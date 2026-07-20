@@ -296,6 +296,24 @@ abstract class AppLocalizations {
   /// **'Войти с паролем'**
   String get pinUsePassword;
 
+  /// No description provided for @loginMethodPin.
+  ///
+  /// In ru, this message translates to:
+  /// **'PIN'**
+  String get loginMethodPin;
+
+  /// No description provided for @loginMethodPassword.
+  ///
+  /// In ru, this message translates to:
+  /// **'Пароль'**
+  String get loginMethodPassword;
+
+  /// No description provided for @loginWithPassword.
+  ///
+  /// In ru, this message translates to:
+  /// **'Вход по паролю'**
+  String get loginWithPassword;
+
   /// No description provided for @testCredentials.
   ///
   /// In ru, this message translates to:

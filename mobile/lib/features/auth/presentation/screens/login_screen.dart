@@ -44,7 +44,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     if (state.value == true) {
       final hasPin = await ref.read(pinRepositoryProvider).hasPin();
       if (!mounted) return;
-      context.go(hasPin ? '/pin' : '/pin-setup');
+      context.go(hasPin ? '/home' : '/pin-setup');
     }
   }
 

@@ -114,6 +114,15 @@ class AppLocalizationsRu extends AppLocalizations {
   String get pinUsePassword => 'Войти с паролем';
 
   @override
+  String get loginMethodPin => 'PIN';
+
+  @override
+  String get loginMethodPassword => 'Пароль';
+
+  @override
+  String get loginWithPassword => 'Вход по паролю';
+
+  @override
   String get testCredentials => 'Тест: demo@jattau.app / password123';
 
   @override

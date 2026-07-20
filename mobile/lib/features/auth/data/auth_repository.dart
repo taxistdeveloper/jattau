@@ -24,7 +24,7 @@ class AuthRepository {
       'password': password,
     });
     final data = response.data['data'];
-    await _saveTokens(data);
+    await _saveSession(data, email);
     return data;
   }
 
@@ -40,8 +40,13 @@ class AuthRepository {
       'full_name': fullName,
     });
     final data = response.data['data'];
-    await _saveTokens(data);
+    await _saveSession(data, email);
     return data;
+  }
+
+  Future<String?> savedEmail() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('saved_email');
   }
 
   Future<void> logout() async {
@@ -61,9 +66,10 @@ class AuthRepository {
     return response.data['data'] as Map<String, dynamic>;
   }
 
-  Future<void> _saveTokens(Map<String, dynamic> data) async {
+  Future<void> _saveSession(Map<String, dynamic> data, String email) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('access_token', data['access_token']);
     await prefs.setString('refresh_token', data['refresh_token']);
+    await prefs.setString('saved_email', email);
   }
 }
