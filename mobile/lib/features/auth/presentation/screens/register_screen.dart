@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jattau/core/utils/api_error.dart';
@@ -17,7 +16,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _pinController = TextEditingController();
   bool _isLoading = false;
 
   @override
@@ -25,7 +23,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
-    _pinController.dispose();
     super.dispose();
   }
 
@@ -35,13 +32,12 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       _emailController.text.trim(),
       _passwordController.text,
       _nameController.text.trim(),
-      _pinController.text.trim(),
     );
     if (mounted) {
       setState(() => _isLoading = false);
       final state = ref.read(authStateProvider);
       state.whenData((loggedIn) {
-        if (loggedIn) context.go('/home');
+        if (loggedIn) context.go('/pin-setup');
       });
       state.whenOrNull(error: (e, _) {
         final l10n = AppLocalizations.of(context)!;
@@ -71,15 +67,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
               TextField(controller: _emailController, decoration: const InputDecoration(labelText: 'Email'), keyboardType: TextInputType.emailAddress),
               const SizedBox(height: 16),
               TextField(controller: _passwordController, decoration: InputDecoration(labelText: l10n.passwordMin8), obscureText: true),
-              const SizedBox(height: 16),
-              TextField(
-                controller: _pinController,
-                decoration: InputDecoration(labelText: l10n.pinCodeMin4),
-                keyboardType: TextInputType.number,
-                obscureText: true,
-                maxLength: 4,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              ),
               const SizedBox(height: 32),
               FilledButton(
                 onPressed: _isLoading ? null : _register,

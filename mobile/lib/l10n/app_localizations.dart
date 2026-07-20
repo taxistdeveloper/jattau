@@ -254,10 +254,52 @@ abstract class AppLocalizations {
   /// **'PIN-код (4 цифры)'**
   String get pinCodeMin4;
 
+  /// No description provided for @pinCreate.
+  ///
+  /// In ru, this message translates to:
+  /// **'Придумайте PIN-код'**
+  String get pinCreate;
+
+  /// No description provided for @pinConfirm.
+  ///
+  /// In ru, this message translates to:
+  /// **'Повторите PIN-код'**
+  String get pinConfirm;
+
+  /// No description provided for @pinCreateHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Им вы будете входить в приложение'**
+  String get pinCreateHint;
+
+  /// No description provided for @pinEnter.
+  ///
+  /// In ru, this message translates to:
+  /// **'Введите PIN-код'**
+  String get pinEnter;
+
+  /// No description provided for @pinMismatch.
+  ///
+  /// In ru, this message translates to:
+  /// **'PIN-коды не совпадают'**
+  String get pinMismatch;
+
+  /// No description provided for @pinWrong.
+  ///
+  /// In ru, this message translates to:
+  /// **'Неверный PIN-код'**
+  String get pinWrong;
+
+  /// No description provided for @pinUsePassword.
+  ///
+  /// In ru, this message translates to:
+  /// **'Войти с паролем'**
+  String get pinUsePassword;
+
   /// No description provided for @testCredentials.
   ///
   /// In ru, this message translates to:
-  /// **'Тест: demo@jattau.app / password123 / PIN 1234'**
+  /// **'Тест: demo@jattau.app / password123'**
   String get testCredentials;
 
   /// No description provided for @login.

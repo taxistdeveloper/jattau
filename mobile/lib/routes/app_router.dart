@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jattau/features/auth/presentation/screens/login_screen.dart';
+import 'package:jattau/features/auth/presentation/screens/pin_screen.dart';
 import 'package:jattau/features/auth/presentation/screens/register_screen.dart';
 import 'package:jattau/features/auth/presentation/screens/splash_screen.dart';
 import 'package:jattau/features/home/presentation/screens/home_screen.dart';
@@ -26,6 +27,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/splash', builder: (_, __) => const SplashScreen()),
       GoRoute(path: '/login', builder: (_, __) => const LoginScreen()),
       GoRoute(path: '/register', builder: (_, __) => const RegisterScreen()),
+      GoRoute(path: '/pin-setup', builder: (_, __) => const PinSetupScreen()),
+      GoRoute(path: '/pin', builder: (_, __) => const PinUnlockScreen()),
       ShellRoute(
         builder: (_, __, child) => _MainShell(child: child),
         routes: [

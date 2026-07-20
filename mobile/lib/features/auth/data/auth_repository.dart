@@ -1,10 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:jattau/features/auth/data/pin_repository.dart';
 import 'package:jattau/services/api_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
-  return AuthRepository(ref.watch(dioProvider));
+  return AuthRepository(ref.watch(dioProvider), ref.watch(pinRepositoryProvider));
 });
 
 final userProfileProvider = FutureProvider<Map<String, dynamic>>((ref) async {
@@ -13,13 +14,14 @@ final userProfileProvider = FutureProvider<Map<String, dynamic>>((ref) async {
 
 class AuthRepository {
   final Dio _dio;
-  AuthRepository(this._dio);
+  final PinRepository _pinRepo;
 
-  Future<Map<String, dynamic>> login(String email, String password, String pin) async {
+  AuthRepository(this._dio, this._pinRepo);
+
+  Future<Map<String, dynamic>> login(String email, String password) async {
     final response = await _dio.post('/auth/login', data: {
       'email': email,
       'password': password,
-      'pin': pin,
     });
     final data = response.data['data'];
     await _saveTokens(data);
@@ -30,14 +32,12 @@ class AuthRepository {
     required String email,
     required String password,
     required String fullName,
-    required String pin,
   }) async {
     final response = await _dio.post('/auth/register', data: {
       'email': email,
       'password': password,
       'password_confirmation': password,
       'full_name': fullName,
-      'pin': pin,
     });
     final data = response.data['data'];
     await _saveTokens(data);
@@ -48,6 +48,7 @@ class AuthRepository {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('access_token');
     await prefs.remove('refresh_token');
+    await _pinRepo.clearPin();
   }
 
   Future<bool> isLoggedIn() async {

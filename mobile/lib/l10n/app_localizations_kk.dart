@@ -93,7 +93,28 @@ class AppLocalizationsKk extends AppLocalizations {
   String get pinCodeMin4 => 'PIN-код (4 цифр)';
 
   @override
-  String get testCredentials => 'Тест: demo@jattau.app / password123 / PIN 1234';
+  String get pinCreate => 'PIN-код ойлап табыңыз';
+
+  @override
+  String get pinConfirm => 'PIN-кодты қайталаңыз';
+
+  @override
+  String get pinCreateHint => 'Қосымшаға осымен кіресіз';
+
+  @override
+  String get pinEnter => 'PIN-кодты енгізіңіз';
+
+  @override
+  String get pinMismatch => 'PIN-кодтар сәйкес емес';
+
+  @override
+  String get pinWrong => 'Қате PIN-код';
+
+  @override
+  String get pinUsePassword => 'Құпия сөзбен кіру';
+
+  @override
+  String get testCredentials => 'Тест: demo@jattau.app / password123';
 
   @override
   String get login => 'Кіру';

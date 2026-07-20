@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jattau/features/auth/data/auth_repository.dart';
+import 'package:jattau/features/auth/data/pin_repository.dart';
 import 'package:jattau/theme/app_theme.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
@@ -33,7 +34,13 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     final repo = ref.read(authRepositoryProvider);
     final loggedIn = await repo.isLoggedIn();
     if (!mounted) return;
-    context.go(loggedIn ? '/home' : '/login');
+    if (!loggedIn) {
+      context.go('/login');
+      return;
+    }
+    final hasPin = await ref.read(pinRepositoryProvider).hasPin();
+    if (!mounted) return;
+    context.go(hasPin ? '/pin' : '/pin-setup');
   }
 
   @override

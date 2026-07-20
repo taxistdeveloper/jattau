@@ -93,7 +93,28 @@ class AppLocalizationsRu extends AppLocalizations {
   String get pinCodeMin4 => 'PIN-код (4 цифры)';
 
   @override
-  String get testCredentials => 'Тест: demo@jattau.app / password123 / PIN 1234';
+  String get pinCreate => 'Придумайте PIN-код';
+
+  @override
+  String get pinConfirm => 'Повторите PIN-код';
+
+  @override
+  String get pinCreateHint => 'Им вы будете входить в приложение';
+
+  @override
+  String get pinEnter => 'Введите PIN-код';
+
+  @override
+  String get pinMismatch => 'PIN-коды не совпадают';
+
+  @override
+  String get pinWrong => 'Неверный PIN-код';
+
+  @override
+  String get pinUsePassword => 'Войти с паролем';
+
+  @override
+  String get testCredentials => 'Тест: demo@jattau.app / password123';
 
   @override
   String get login => 'Войти';

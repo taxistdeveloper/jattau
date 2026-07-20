@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jattau/core/utils/api_error.dart';
+import 'package:jattau/features/auth/data/pin_repository.dart';
 import 'package:jattau/features/auth/presentation/providers/auth_provider.dart';
 import 'package:jattau/l10n/app_localizations.dart';
 
@@ -16,14 +16,12 @@ class LoginScreen extends ConsumerStatefulWidget {
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _pinController = TextEditingController();
   bool _isLoading = false;
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
-    _pinController.dispose();
     super.dispose();
   }
 
@@ -32,20 +30,21 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     await ref.read(authStateProvider.notifier).login(
       _emailController.text.trim(),
       _passwordController.text,
-      _pinController.text.trim(),
     );
-    if (mounted) {
-      setState(() => _isLoading = false);
-      final state = ref.read(authStateProvider);
-      state.whenData((loggedIn) {
-        if (loggedIn) context.go('/home');
-      });
-      state.whenOrNull(error: (e, _) {
-        final l10n = AppLocalizations.of(context)!;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(parseApiError(e, l10n))),
-        );
-      });
+    if (!mounted) return;
+    setState(() => _isLoading = false);
+    final state = ref.read(authStateProvider);
+    if (state.hasError) {
+      final l10n = AppLocalizations.of(context)!;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(parseApiError(state.error!, l10n))),
+      );
+      return;
+    }
+    if (state.value == true) {
+      final hasPin = await ref.read(pinRepositoryProvider).hasPin();
+      if (!mounted) return;
+      context.go(hasPin ? '/pin' : '/pin-setup');
     }
   }
 
@@ -76,15 +75,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 controller: _passwordController,
                 decoration: InputDecoration(labelText: l10n.password),
                 obscureText: true,
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: _pinController,
-                decoration: InputDecoration(labelText: l10n.pinCode),
-                keyboardType: TextInputType.number,
-                obscureText: true,
-                maxLength: 4,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               ),
               const SizedBox(height: 8),
               Text(

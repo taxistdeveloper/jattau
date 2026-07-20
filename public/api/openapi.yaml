@@ -40,13 +40,12 @@ paths:
           application/json:
             schema:
               type: object
-              required: [email, password, password_confirmation, full_name, pin]
+              required: [email, password, password_confirmation, full_name]
               properties:
                 email: { type: string, format: email }
                 password: { type: string, minLength: 8 }
                 password_confirmation: { type: string }
                 full_name: { type: string }
-                pin: { type: string, pattern: '^[0-9]{4}$', description: '4-digit PIN' }
       responses:
         '201':
           description: Registered
@@ -67,11 +66,10 @@ paths:
           application/json:
             schema:
               type: object
-              required: [email, password, pin]
+              required: [email, password]
               properties:
                 email: { type: string }
                 password: { type: string }
-                pin: { type: string, pattern: '^[0-9]{4}$', description: '4-digit PIN' }
       responses:
         '200':
           description: Logged in
