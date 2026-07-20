@@ -14,7 +14,7 @@ class AuthService
         private JwtHelper $jwt = new JwtHelper(),
     ) {}
 
-    public function register(string $email, string $password, string $fullName): array
+    public function register(string $email, string $password, string $fullName, string $pin): array
     {
         if ($this->userRepo->findByEmail($email)) {
             throw new \InvalidArgumentException('Email already registered');
@@ -23,6 +23,7 @@ class AuthService
         $user = $this->userRepo->create([
             'email' => $email,
             'password_hash' => password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]),
+            'pin_hash' => password_hash($pin, PASSWORD_BCRYPT, ['cost' => 12]),
             'full_name' => $fullName,
             'role' => 'user',
         ]);
@@ -32,10 +33,14 @@ class AuthService
         return $this->generateTokens($user);
     }
 
-    public function login(string $email, string $password): array
+    public function login(string $email, string $password, string $pin): array
     {
         $user = $this->userRepo->findByEmail($email);
         if (!$user || !password_verify($password, $user['password_hash'])) {
+            throw new \InvalidArgumentException('Invalid credentials');
+        }
+
+        if (empty($user['pin_hash']) || !password_verify($pin, $user['pin_hash'])) {
             throw new \InvalidArgumentException('Invalid credentials');
         }
 

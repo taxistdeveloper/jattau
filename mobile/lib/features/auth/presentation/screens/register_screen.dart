@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jattau/core/utils/api_error.dart';
@@ -16,7 +17,17 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _pinController = TextEditingController();
   bool _isLoading = false;
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _pinController.dispose();
+    super.dispose();
+  }
 
   Future<void> _register() async {
     setState(() => _isLoading = true);
@@ -24,6 +35,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       _emailController.text.trim(),
       _passwordController.text,
       _nameController.text.trim(),
+      _pinController.text.trim(),
     );
     if (mounted) {
       setState(() => _isLoading = false);
@@ -59,6 +71,15 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
               TextField(controller: _emailController, decoration: const InputDecoration(labelText: 'Email'), keyboardType: TextInputType.emailAddress),
               const SizedBox(height: 16),
               TextField(controller: _passwordController, decoration: InputDecoration(labelText: l10n.passwordMin8), obscureText: true),
+              const SizedBox(height: 16),
+              TextField(
+                controller: _pinController,
+                decoration: InputDecoration(labelText: l10n.pinCodeMin4),
+                keyboardType: TextInputType.number,
+                obscureText: true,
+                maxLength: 4,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              ),
               const SizedBox(height: 32),
               FilledButton(
                 onPressed: _isLoading ? null : _register,

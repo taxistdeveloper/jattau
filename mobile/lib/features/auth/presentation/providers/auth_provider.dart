@@ -15,20 +15,20 @@ class AuthNotifier extends StateNotifier<AsyncValue<bool>> {
     state = AsyncValue.data(await _repo.isLoggedIn());
   }
 
-  Future<void> login(String email, String password) async {
+  Future<void> login(String email, String password, String pin) async {
     state = const AsyncValue.loading();
     try {
-      await _repo.login(email, password);
+      await _repo.login(email, password, pin);
       state = const AsyncValue.data(true);
     } catch (e, st) {
       state = AsyncValue.error(e, st);
     }
   }
 
-  Future<void> register(String email, String password, String name) async {
+  Future<void> register(String email, String password, String name, String pin) async {
     state = const AsyncValue.loading();
     try {
-      await _repo.register(email: email, password: password, fullName: name);
+      await _repo.register(email: email, password: password, fullName: name, pin: pin);
       state = const AsyncValue.data(true);
     } catch (e, st) {
       state = AsyncValue.error(e, st);

@@ -20,13 +20,19 @@ class AuthController
             'email' => 'required|email',
             'password' => 'required|min:8|confirmed',
             'full_name' => 'required|min:2|max:255',
+            'pin' => 'required|digits:4',
         ])) {
             Response::error('Validation failed', 422, $validator->errors());
         }
 
         try {
             $auth = new AuthService();
-            $result = $auth->register($data['email'], $data['password'], $data['full_name']);
+            $result = $auth->register(
+                $data['email'],
+                $data['password'],
+                $data['full_name'],
+                (string) $data['pin'],
+            );
             Response::success($result, 'Registration successful', 201);
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 400);
@@ -41,13 +47,14 @@ class AuthController
         if (!$validator->validate($data, [
             'email' => 'required|email',
             'password' => 'required',
+            'pin' => 'required|digits:4',
         ])) {
             Response::error('Validation failed', 422, $validator->errors());
         }
 
         try {
             $auth = new AuthService();
-            $result = $auth->login($data['email'], $data['password']);
+            $result = $auth->login($data['email'], $data['password'], (string) $data['pin']);
             Response::success($result, 'Login successful');
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 401);

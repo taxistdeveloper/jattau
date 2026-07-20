@@ -15,10 +15,11 @@ class AuthRepository {
   final Dio _dio;
   AuthRepository(this._dio);
 
-  Future<Map<String, dynamic>> login(String email, String password) async {
+  Future<Map<String, dynamic>> login(String email, String password, String pin) async {
     final response = await _dio.post('/auth/login', data: {
       'email': email,
       'password': password,
+      'pin': pin,
     });
     final data = response.data['data'];
     await _saveTokens(data);
@@ -29,12 +30,14 @@ class AuthRepository {
     required String email,
     required String password,
     required String fullName,
+    required String pin,
   }) async {
     final response = await _dio.post('/auth/register', data: {
       'email': email,
       'password': password,
       'password_confirmation': password,
       'full_name': fullName,
+      'pin': pin,
     });
     final data = response.data['data'];
     await _saveTokens(data);

@@ -242,10 +242,22 @@ abstract class AppLocalizations {
   /// **'Пароль'**
   String get password;
 
+  /// No description provided for @pinCode.
+  ///
+  /// In ru, this message translates to:
+  /// **'PIN-код'**
+  String get pinCode;
+
+  /// No description provided for @pinCodeMin4.
+  ///
+  /// In ru, this message translates to:
+  /// **'PIN-код (4 цифры)'**
+  String get pinCodeMin4;
+
   /// No description provided for @testCredentials.
   ///
   /// In ru, this message translates to:
-  /// **'Тест: demo@jattau.app / password123'**
+  /// **'Тест: demo@jattau.app / password123 / PIN 1234'**
   String get testCredentials;
 
   /// No description provided for @login.

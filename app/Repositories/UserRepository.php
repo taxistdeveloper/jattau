@@ -26,13 +26,14 @@ class UserRepository extends BaseRepository
     {
         $id = $this->uuid();
         $stmt = $this->db->prepare('
-            INSERT INTO users (id, email, password_hash, full_name, role)
-            VALUES (:id, :email, :password_hash, :full_name, :role)
+            INSERT INTO users (id, email, password_hash, pin_hash, full_name, role)
+            VALUES (:id, :email, :password_hash, :pin_hash, :full_name, :role)
         ');
         $stmt->execute([
             'id' => $id,
             'email' => $data['email'],
             'password_hash' => $data['password_hash'],
+            'pin_hash' => $data['pin_hash'],
             'full_name' => $data['full_name'],
             'role' => $data['role'] ?? 'user',
         ]);

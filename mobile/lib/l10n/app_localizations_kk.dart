@@ -87,7 +87,13 @@ class AppLocalizationsKk extends AppLocalizations {
   String get password => 'Құпия сөз';
 
   @override
-  String get testCredentials => 'Тест: demo@jattau.app / password123';
+  String get pinCode => 'PIN-код';
+
+  @override
+  String get pinCodeMin4 => 'PIN-код (4 цифр)';
+
+  @override
+  String get testCredentials => 'Тест: demo@jattau.app / password123 / PIN 1234';
 
   @override
   String get login => 'Кіру';

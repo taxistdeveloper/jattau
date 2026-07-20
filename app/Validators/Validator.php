@@ -42,6 +42,7 @@ class Validator
             'email' => $this->email($field, $value),
             'min' => $this->min($field, $value, (int) $param),
             'max' => $this->max($field, $value, (int) $param),
+            'digits' => $this->digits($field, $value, (int) $param),
             'uuid' => $this->uuid($field, $value),
             'integer' => $this->integer($field, $value),
             'confirmed' => $this->confirmed($field, $value, $data),
@@ -74,6 +75,16 @@ class Validator
     {
         if ($value && strlen((string) $value) > $max) {
             $this->errors[$field][] = "{$field} must not exceed {$max} characters";
+        }
+    }
+
+    private function digits(string $field, mixed $value, int $length): void
+    {
+        if ($value === null || $value === '') {
+            return;
+        }
+        if (!preg_match('/^\d{' . $length . '}$/', (string) $value)) {
+            $this->errors[$field][] = "{$field} must be exactly {$length} digits";
         }
     }
 
